@@ -18,7 +18,7 @@ def signup(request):
 
             return redirect('index')
 
-    return render(request, template_name='mainapp/signup.html', context={
+    return render(request, template_name='authapp/signup.html', context={
         'form': form
     })
 
@@ -33,7 +33,7 @@ def login_view(request):
                 login(request, user)
                 return redirect('index')
             return HttpResponse('Something went wrong')
-    return render(request, 'mainapp/login.html', context={
+    return render(request, 'authapp/login.html', context={
         'form': form
     })
 
