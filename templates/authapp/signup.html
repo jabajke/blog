@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'main/layout.html' %}
 
-</body>
-</html>
+{% block title %} {{ title }} {% endblock %}
+
+
+{% block content %}
+<div class="features">
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <p>{{ field.label }}</p>
+        {{ field }}<br>
+        {% endfor %}
+        <button class="btn btn-info"><i class="fa fa-plus-circle"></i>SignUp</button>
+        </li>
+    </form>
+</div>
+
+{% endblock %}
