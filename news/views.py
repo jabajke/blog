@@ -6,7 +6,6 @@ from django.views import generic
 
 from .models import Articles, Comment
 from .forms import ArticlesForm, CommentForm
-from .mixins import AdminPassTestMixin
 
 
 def news_home(request):
@@ -20,26 +19,26 @@ class NewsDetailView(generic.DetailView):
     context_object_name = 'article'
 
 
-class NewsUpdateView(AdminPassTestMixin, generic.UpdateView):
+class NewsUpdateView(generic.UpdateView):
     model = Articles
     template_name = 'news/create.html'
     form_class = ArticlesForm
 
 
-class NewsDeleteView(AdminPassTestMixin, generic.DeleteView):
+class NewsDeleteView(generic.DeleteView):
     model = Articles
     template_name = 'news/news_delete.html'
     success_url = '/news'
 
 
-class ArticleCreateView(AdminPassTestMixin, generic.CreateView):
+class ArticleCreateView(generic.CreateView):
     model = Articles
     template_name = 'news/create.html'
     form_class = ArticlesForm
     success_url = '/news'
 
 
-class CommentCreateView(LoginRequiredMixin, generic.CreateView):
+class CommentCreateView(generic.CreateView):
     model = Comment
     template_name = 'news/comment_create.html'
     form_class = CommentForm
