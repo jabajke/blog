@@ -1,0 +1,8 @@
+.comment {
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    padding: 8px;
+    display: grid;
+    grid-template-columns: 1fr max-content;
+
+}

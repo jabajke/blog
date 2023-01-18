@@ -1,0 +1,11 @@
+{% extends 'main/layout.html' %}
+{% block content %}
+<div class="features">
+    <h3>Everything is okay! Press button to redirect to the main page</h3>
+
+    <a href="{% url 'index' %}">
+        <button class="btn btn-info"><i class="fa fa-plus-circle"></i>На главную</button>
+
+    </a>
+</div>
+{% endblock %}
