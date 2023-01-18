@@ -10,26 +10,10 @@
 <div class="features">
     <h3>{{ article.title }}</h3>
     <h3>{{ article.full_text }}</h3>
-    {% if request.user.is_superuser %}
         <a href="{% url 'delete_news' article.id %}" class="btn btn-danger">Удалить статью</a>
         <a href="{% url 'update_news' article.id %}" class="btn btn-info">Обновить статью</a>
-    {% endif %}
-    <div class="comments">
-        {% if comments %}
-        <h3>Комментарии</h3>
-        {% for comment in comments %}
-        <div class="comment">
-            <h3>{{ comment.user }}</h3>
-            <p>{{ comment.created_at }}</p>
-            <p>{{ comment.text }}</p>
-
-        </div>
-        {% endfor %}
-        {% endif %}
+        <a href="{% url 'comment_create' article.id %}" class="btn btn-info">Добавить комментарий</a>
     </div>
-        {% if request.user.is_authenticated %}
-    <a href="{% url 'comment_create' article.id %}" class="btn btn-info">Добавить комментарий</a>
-    {% endif %}
 </div>
 {% endblock %}
 
