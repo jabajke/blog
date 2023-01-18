@@ -1,16 +1,12 @@
 from django.shortcuts import render, redirect, HttpResponse
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.views import generic
 
 from .models import Articles, Comment
 from .forms import ArticlesForm, CommentForm
-from django.views.generic import DetailView, UpdateView, DeleteView, CreateView
-
-
-class AdminPassTestMixin(UserPassesTestMixin):
-    def test_func(self):
-        return self.request.user.is_superuser
+from .mixins import AdminPassTestMixin
 
 
 def news_home(request):
@@ -18,39 +14,39 @@ def news_home(request):
     return render(request, 'news/news_home.html', {'news': news})
 
 
-class NewsDetailView(DetailView):
+class NewsDetailView(generic.DetailView):
     model = Articles
     template_name = 'news/detail.html'
     context_object_name = 'article'
 
     def get_context_data(self, **kwargs):
         context = super(NewsDetailView, self).get_context_data(**kwargs)
-        context['comments'] = Comment.objects\
-            .filter(article_id=self.kwargs['pk'])\
+        context['comments'] = Comment.objects \
+            .filter(article_id=self.kwargs['pk']) \
             .order_by('-created_at')
         return context
 
 
-class NewsUpdateView(AdminPassTestMixin, UpdateView):
+class NewsUpdateView(AdminPassTestMixin, generic.UpdateView):
     model = Articles
     template_name = 'news/create.html'
     form_class = ArticlesForm
 
 
-class NewsDeleteView(AdminPassTestMixin, DeleteView):
+class NewsDeleteView(AdminPassTestMixin, generic.DeleteView):
     model = Articles
     template_name = 'news/news_delete.html'
     success_url = '/news'
 
 
-class ArticleCreateView(AdminPassTestMixin, CreateView):
+class ArticleCreateView(AdminPassTestMixin, generic.CreateView):
     model = Articles
     template_name = 'news/create.html'
     form_class = ArticlesForm
     success_url = '/news'
 
 
-class CommentCreateView(LoginRequiredMixin, CreateView):
+class CommentCreateView(LoginRequiredMixin, generic.CreateView):
     model = Comment
     template_name = 'news/comment_create.html'
     form_class = CommentForm

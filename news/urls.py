@@ -9,5 +9,4 @@ urlpatterns = [
     path('<int:pk>/update/', views.NewsUpdateView.as_view(), name='update_news'),
     path('<int:pk>/delete/', views.NewsDeleteView.as_view(), name='delete_news'),
     path('<int:pk>/comment/', views.CommentCreateView.as_view(), name='comment_create')
-
 ]
