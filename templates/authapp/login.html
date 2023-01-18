@@ -1,0 +1,15 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="features">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <span>{{error}}</span>
+
+        <button class="btn btn-info"><i class="fa fa-plus-circle"></i>Login</button>
+    </form>
+</div>
+{% endblock %}
