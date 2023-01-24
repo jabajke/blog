@@ -18,6 +18,12 @@ class NewsDetailView(generic.DetailView):
     template_name = 'news/detail.html'
     context_object_name = 'article'
 
+    def get_context_data(self, **kwargs):
+        print(self.kwargs)
+        context = super(NewsDetailView, self).get_context_data(**kwargs)
+        context['comments'] = Comment.objects.filter(article_id=self.kwargs['pk'])
+        return context
+
 
 class NewsUpdateView(generic.UpdateView):
     model = Articles
